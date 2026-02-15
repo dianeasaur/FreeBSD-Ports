@@ -1,3 +1,6 @@
 [submodule "editors/vscodium"]
 	path = editors/vscodium
 	url = https://github.com/dianeasaur/FreeBSD-VSCodium.git
+[submodule "external/FreeBSD-Electron"]
+	path = external/FreeBSD-Electron
+	url = https://github.com/tagattie/FreeBSD-Electron.git
