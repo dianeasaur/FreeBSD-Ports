@@ -1,0 +1,3 @@
+[submodule "editors/vscodium"]
+	path = editors/vscodium
+	url = https://github.com/dianeasaur/FreeBSD-VSCodium.git
