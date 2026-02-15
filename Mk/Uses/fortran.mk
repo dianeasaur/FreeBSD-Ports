@@ -9,11 +9,11 @@
 .if !defined(_INCLUDE_USES_FORTRAN_MK)
     _INCLUDE_USES_FORTRAN_MK=yes
 
-  .  if empty(fortran_ARGS)
+.  if empty(fortran_ARGS)
 fortran_ARGS=	lfortran
-  .  endif
+.  endif
 
-  .  if ${fortran_ARGS} == lfortran
+.  if ${fortran_ARGS} == lfortran
 USES-=gmake
 BUILD_DEPENDS+=	lfortran:lang/lfortran
 RUN_DEPENDS+=	lfortran:lang/lfortran
@@ -25,9 +25,9 @@ F90FLAGS=       ""
 FCFLAGS=        ""
 LDFLAGS=        ""
 CFLAGS_F2018=""
-  .  else
+.  else
 IGNORE=USES=fortran: invalid arguments: ${fortran_ARGS}
-  .  endif
+.  endif
 
 USE_BINUTILS=	yes
 
