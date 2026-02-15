@@ -13,7 +13,7 @@ LICENSE_FILE=	${WRKSRC}/LICENSE
 
 USES=		gem
 
-RUN_DEPENDS=    rubygem-logger>=0:devel/rubygem-logger
+RUN_DEPENDS=	rubygem-logger>=0:devel/rubygem-logger
 
 NO_ARCH=	yes
 
