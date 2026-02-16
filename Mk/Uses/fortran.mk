@@ -2,7 +2,7 @@
 #
 # Feature:	fortran
 # Usage:	USES = fortran
-# Valid ARGS:	lfortran
+# Valid ARGS:	flang lfortran gfortran
 #
 # MAINTAINER:	4983626+dianeasaur@users.noreply.github.com
 
@@ -18,7 +18,7 @@ VALID_ARGS=	flang gfortran lfortran
 .  if ${fortran_ARGS} == flang
 _USE_LLVM=	yes
 .    if empty(llvm_ARGS)
-llvm_ARGS=	21	
+llvm_ARGS=	21
 .    endif
 .    if defined(_USE_LLVM)
 .include "${USESDIR}/llvm.mk"
@@ -39,7 +39,7 @@ CFLAGS_F2018=	-I${LLVM_PREFIX}/include
 _USE_LLVM=	yes
 .    if defined(_USE_LLVM)
 .      if empty(llvm_ARGS)
-llvm_ARGS=      21
+llvm_ARGS=	21
 .      endif
 .include "${USESDIR}/llvm.mk"
 _LLVM_VER=	${LLVM_DEFAULT}
