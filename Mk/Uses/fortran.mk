@@ -17,16 +17,16 @@ VALID_ARGS=	flang gfortran lfortran
 
 .  if ${fortran_ARGS} == flang
 _USE_LLVM=	yes
-_LLVM_VER=	${LLVM_DEFAULT}
 .    if defined(_USE_LLVM)
 .include "${USESDIR}/llvm.mk"
-BUILD_DEPENDS+= ${LOCALBASE}/bin/flang${LLVM_VER}:devel/llvm${LLVM_VER}
-RUN_DEPENDS+=   ${LOCALBASE}/bin/flang${LLVM_VER}:devel/llvm${LLVM_VER}
+_LLVM_VER=	${LLVM_DEFAULT}
+BUILD_DEPENDS+= flang${_LLVM_VER}:devel/llvm${_LLVM_VER}
+RUN_DEPENDS+=   flang${_LLVM_VER}:devel/llvm${_LLVM_VER}
 .    endif # defined(_USE_LLVM)
 FC_DEFAULTS=
-F77=		flang${LLVM_VER}
-F90=		flang${LLVM_VER}
-FC=		flang${LLVM_VER}
+F77=		flang${_LLVM_VER}
+F90=		flang${_LLVM_VER}
+FC=		flang${_LLVM_VER}
 FFLAGS+=	-Wl,-rpath=${LLVM_PREFIX}/lib
 F90FLAGS+=	-Wl,-rpath=${LLVM_PREFIX}/lib
 FCFLAGS+=	-Wl,-rpath=${LLVM_PREFIX}/lib
@@ -34,9 +34,9 @@ LDFLAGS+=	-L${LOCALBASE}/lib -Wl,-rpath=${LLVM_PREFIX}/lib
 CFLAGS_F2018=	-I${LLVM_PREFIX}/include
 .  elif ${fortran_ARGS} ==	lfortran
 _USE_LLVM=	yes
-_LLVM_VER=	${LLVM_DEFAULT}
 .    if defined(_USE_LLVM)
 .include "${USESDIR}/llvm.mk"
+_LLVM_VER=	${LLVM_DEFAULT}
 BUILD_DEPENDS+=	lfortran:lang/lfortran
 RUN_DEPENDS+=	lfortran:lang/lfortran
 .    endif # defined(_USE_LLVM)
