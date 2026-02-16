@@ -17,6 +17,9 @@ VALID_ARGS=	flang gfortran lfortran
 
 .  if ${fortran_ARGS} == flang
 _USE_LLVM=	yes
+.    if empty(llvm_ARGS)
+llvm_ARGS=	21	
+.    endif
 .    if defined(_USE_LLVM)
 .include "${USESDIR}/llvm.mk"
 _LLVM_VER=	${LLVM_DEFAULT}
@@ -35,6 +38,9 @@ CFLAGS_F2018=	-I${LLVM_PREFIX}/include
 .  elif ${fortran_ARGS} ==	lfortran
 _USE_LLVM=	yes
 .    if defined(_USE_LLVM)
+.      if empty(llvm_ARGS)
+llvm_ARGS=      21
+.      endif
 .include "${USESDIR}/llvm.mk"
 _LLVM_VER=	${LLVM_DEFAULT}
 BUILD_DEPENDS+=	lfortran:lang/lfortran
