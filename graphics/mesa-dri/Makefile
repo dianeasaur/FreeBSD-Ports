@@ -10,7 +10,7 @@ BUILD_DEPENDS+=	${PYTHON_PKGNAMEPREFIX}ply>0:devel/py-ply@${PY_FLAVOR} \
 	${PYTHON_PKGNAMEPREFIX}pyyaml>0:devel/py-pyyaml@${PY_FLAVOR} \
 	libdisplay-info>0:sysutils/libdisplay-info \
 
-USES+=		llvm
+USES+=		llvm:noexport
 
 OPTIONS_DEFINE=		ZSTD GLVND
 OPTIONS_GROUP=		GALLIUM PLATFORM VULKAN
@@ -41,11 +41,6 @@ ETNAVIV_DESC=		Vivante GCxxx series GPUs
 FREEDRENO_DESC=		Qualcomm Adreno GPUs
 I915_DESC=		Intel GPU Gen3 (Grantsdale to Pineview)
 IRIS_DESC=		Intel GPU Gen8 (Broadwell) and newer
-IRIS_BUILD_DEPENDS=     libclc-${LLVM_PORT:T}>0:devel/libclc@${LLVM_PORT:T} \
-	spirv-llvm-translator-${LLVM_PORT:T}>0:devel/spirv-llvm-translator@${LLVM_PORT:T} \
-	spirv-tools>0:graphics/spirv-tools
-IRIS_CONFIGURE_ENV+=	PKG_CONFIG_PATH="${LLVM_PREFIX}/libdata/pkgconfig"
-iris_IMPLIES=           SPIRV
 LIMA_DESC=		Mali Utgard (Mali-4xx) embedded GPUs from ARM
 LLVMPIPE_DESC=		Software rasterizer
 NOUVEAU_DESC=		Open-source driver for Nvidia video cards and Tegra family of SoCs
@@ -75,14 +70,6 @@ RADV_DESC=		AMD GPU support with Khronos' Vulkan API
 RADV_BUILD_DEPENDS=	glslangValidator:graphics/glslang
 FREEDRENO_DESC=		Qualcomm Adreno GPUs
 ANV_DESC=		Intel Mesa Vulkan (ANV)
-ANV_BUILD_DEPENDS=	glslangValidator:graphics/glslang \
-	libclc-${LLVM_PORT:T}>0:devel/libclc@${LLVM_PORT:T} \
-	spirv-llvm-translator-${LLVM_PORT:T}>0:devel/spirv-llvm-translator@${LLVM_PORT:T} \
-	spirv-tools>0:graphics/spirv-tools
-ANV_LIB_DEPENDS+=	libxcb-keysyms.so.1:x11/xcb-util-keysyms \
-	libdisplay-info.so.3:sysutils/libdisplay-info \
-	libudev.so.0:devel/libudev-devd
-ANV_CONFIGURE_ENV+=	PKG_CONFIG_PATH="${LLVM_PREFIX}/libdata/pkgconfig"
 INTEL_HASVK_DESC=	Forked open-source Intel driver for Ivy Bridge/Haswell
 NOUVEAU_DESC=		Open-source driver for Nvidia video cards and Tegra family of SoCs
 PANFROST_DESC=		ARM Midgard and Bifrost

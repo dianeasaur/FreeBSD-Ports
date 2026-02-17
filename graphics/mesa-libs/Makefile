@@ -9,13 +9,11 @@ WWW=		https://www.mesa3d.org/
 LICENSE=	MIT
 LICENSE_FILE=	${WRKSRC}/docs/license.rst
 
-USES=		llvm
+USES=		llvm:noexport
 
 BUILD_DEPENDS=	libglvnd>=0:graphics/libglvnd \
 	${PYTHON_PKGNAMEPREFIX}pyyaml>0:devel/py-pyyaml@${PY_FLAVOR} \
-	libdisplay-info>0:sysutils/libdisplay-info \
-	spirv-llvm-translator-${LLVM_PORT:T}>0:devel/spirv-llvm-translator@${LLVM_PORT:T} \
-	spirv-tools>0:graphics/spirv-tools
+	libdisplay-info>0:sysutils/libdisplay-info
 LIB_DEPENDS+=	${LLVM_LIBLLVM}:${LLVM_PORT}
 
 OPTIONS_GROUP=		PLATFORM
@@ -28,6 +26,14 @@ WAYLAND_LIB_DEPENDS+=	libwayland-client.so:graphics/wayland
 OPTIONS_DEFINE=		GLVND ZSTD
 OPTIONS_DEFAULT=	GLVND WAYLAND X11 ZSTD
 OPTIONS_SUB=		yes
+
+OPTIONS_GROUP=		GALLIUM
+OPTIONS_GROUP_GALLIUM=	IRIS LLVMPIPE
+
+. for _gd in ${OPTIONS_GROUP_GALLIUM}
+OPTIONS_DEFAULT+=       ${_gd:tl}
+${_gd}_VARS+=           GALLIUM_DRIVERS+=${_gd:tl}
+. endfor
 
 GLVND_DESC=		Use system vendor-neutral OpenGL dispatch lib
 GLVND_MESON_ENABLED=	glvnd
@@ -55,8 +61,8 @@ MESON_ARGS+=	-Dandroid-libbacktrace=disabled \
 		-Dgbm=enabled \
 		-Dvulkan-drivers=""
 
-# Building EGL and GBM requires a driver so add LLVMPIPE
-MESON_ARGS+=	-Dgallium-drivers="llvmpipe"
+# Building EGL and GBM requires a driver so add IRIS
+MESON_ARGS+=	-Dgallium-drivers="iris"
 
 # Include non-free codecs
 MESON_ARGS+=	-Dvideo-codecs="all"

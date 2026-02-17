@@ -63,4 +63,3 @@ share/drirc.d/01-freebsd.conf
 %%RADV%%share/drirc.d/00-radv-defaults.conf
 %%RADV%%share/vulkan/icd.d/radeon_icd.%%ARCH%%.json
 %%SWRAST_VK%%share/vulkan/icd.d/lvp_icd.%%ARCH%%.json
-%%RADV%%share/drirc.d/00-radv-defaults.conf

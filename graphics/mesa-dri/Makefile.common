@@ -28,6 +28,26 @@ LIB_DEPENDS+=	libdrm.so:graphics/libdrm
 LIB_DEPENDS+=	libexpat.so:textproc/expat2
 .endif
 
+.if ${PORT_OPTIONS:MIRIS}
+BUILD_DEPENDS+=	libclc-${LLVM_PORT:T}>0:devel/libclc@${LLVM_PORT:T} \
+			spirv-tools>0:graphics/spirv-tools \
+			spirv-llvm-translator-${LLVM_PORT:T}>0:devel/spirv-llvm-translator@${LLVM_PORT:T}
+RUN_DEPENDS+=	spirv-tools>0:graphics/spirv-tools \
+			spirv-llvm-translator-${LLVM_PORT:T}>0:devel/spirv-llvm-translator@${LLVM_PORT:T}
+CONFIGURE_ENV+=	PKG_CONFIG_PATH="${LLVM_PREFIX}/libdata/pkgconfig"
+.endif
+
+.if ${PORT_OPTIONS:MANV}
+BUILD_DEPENDS+=      glslangValidator:graphics/glslang \
+        libclc-${LLVM_PORT:T}>0:devel/libclc@${LLVM_PORT:T} \
+        spirv-llvm-translator-${LLVM_PORT:T}>0:devel/spirv-llvm-translator@${LLVM_PORT:T} \
+        spirv-tools>0:graphics/spirv-tools
+LIB_DEPENDS+=       libxcb-keysyms.so.1:x11/xcb-util-keysyms \
+        libdisplay-info.so.3:sysutils/libdisplay-info \
+        libudev.so.0:devel/libudev-devd
+CONFIGURE_ENV+=     PKG_CONFIG_PATH="${LLVM_PREFIX}/libdata/pkgconfig"
+.endif
+
 USES+=		compiler:c++11-lib bison meson pathfix pkgconfig \
 		python:build shebangfix tar:xz
 
