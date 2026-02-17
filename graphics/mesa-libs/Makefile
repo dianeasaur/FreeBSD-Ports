@@ -20,8 +20,6 @@ OPTIONS_GROUP=		PLATFORM
 OPTIONS_GROUP_PLATFORM=	X11 WAYLAND
 X11_DESC=		Enable X11 support for GBM/EGL
 WAYLAND_DESC=		Enable Wayland support for GBM/EGL
-WAYLAND_BUILD_DEPENDS=	wayland-protocols>=1.8:graphics/wayland-protocols
-WAYLAND_LIB_DEPENDS+=	libwayland-client.so:graphics/wayland
 
 OPTIONS_DEFINE=		GLVND ZSTD
 OPTIONS_DEFAULT=	GLVND WAYLAND X11 ZSTD
@@ -61,8 +59,8 @@ MESON_ARGS+=	-Dandroid-libbacktrace=disabled \
 		-Dgbm=enabled \
 		-Dvulkan-drivers=""
 
-# Building EGL and GBM requires a driver so add IRIS
-MESON_ARGS+=	-Dgallium-drivers="iris"
+# Building EGL and GBM requires a driver
+MESON_ARGS+=    -Dgallium-drivers=${GALLIUM_DRIVERS:ts,}
 
 # Include non-free codecs
 MESON_ARGS+=	-Dvideo-codecs="all"

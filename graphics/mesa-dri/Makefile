@@ -28,8 +28,6 @@ ZSTD_MESON_ENABLED=	zstd
 OPTIONS_GROUP_PLATFORM=	X11 WAYLAND
 X11_DESC=		Enable X11 support for GBM/EGL
 WAYLAND_DESC=		Enable Wayland support for GBM/EGL and Vulkan
-WAYLAND_BUILD_DEPENDS=	wayland-protocols>=1.8:graphics/wayland-protocols
-WAYLAND_LIB_DEPENDS=	libwayland-client.so:graphics/wayland
 
 OPTIONS_GROUP_GALLIUM=	CROCUS ETNAVIV FREEDRENO I915 IRIS LIMA LLVMPIPE \
 			NOUVEAU PANFROST R300 R600 RADEONSI SVGA SWRAST \
@@ -98,10 +96,6 @@ MESA_PLATFORMS+=	x11
 USE_XORG+=		xcb xorgproto xrandr x11 xdamage xext xfixes xshmfence xv
 .else
 MESON_ARGS+=		-Dxlib-lease=disabled
-.endif
-
-.if ${PORT_OPTIONS:MWAYLAND}
-MESA_PLATFORMS+=	wayland
 .endif
 
 MESON_ARGS+=	-Dplatforms="${MESA_PLATFORMS:ts,:tl}"
