@@ -1,13 +1,13 @@
 etc/libmap.d/mesa.conf
 include/EGL/eglext_angle.h
 include/EGL/eglmesaext.h
-include/GL/internal/dri_interface.h
+@comment include/GL/internal/dri_interface.h
 include/gbm.h
 include/gbm_backend_abi.h
-lib/dri/kms_swrast_dri.so
-lib/dri/libdril_dri.so
-lib/dri/swrast_dri.so
-lib/gbm/dri_gbm.so
+@comment lib/dri/kms_swrast_dri.so
+@comment lib/dri/libdril_dri.so
+@comment lib/dri/swrast_dri.so
+@comment lib/gbm/dri_gbm.so
 lib/libEGL_mesa.so
 lib/libEGL_mesa.so.0
 lib/libEGL_mesa.so.0.0.0
@@ -18,7 +18,7 @@ lib/libgallium-26.0.0.so
 lib/libgbm.so
 lib/libgbm.so.1
 lib/libgbm.so.1.0.0
-libdata/pkgconfig/dri.pc
+@comment libdata/pkgconfig/dri.pc
 libdata/pkgconfig/gbm.pc
-share/drirc.d/00-mesa-defaults.conf
+@comment share/drirc.d/00-mesa-defaults.conf
 share/glvnd/egl_vendor.d/50_mesa.json
