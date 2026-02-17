@@ -1,0 +1,52 @@
+PORTNAME=	libclc
+DISTVERSION=	${DISTVERSION_${FLAVOR}}
+
+DISTVERSION_llvm21=	21.1.8
+
+CATEGORIES=	devel
+MASTER_SITES=	https://github.com/llvm/llvm-project/releases/download/llvmorg-${DISTVERSION:S/rc/-rc/}/
+DISTNAME=	libclc-${DISTVERSION}.src
+PKGNAMESUFFIX=	-${FLAVOR}
+
+MAINTAINER=	x11@FreeBSD.org
+COMMENT=	Required library functions for OpenCL C programming language
+WWW=		https://libclc.llvm.org/
+
+LICENSE=	LLVM
+LICENSE_FILE=	${WRKSRC}/LICENSE.TXT
+LICENSE_NAME=	Apache License 2.0 with LLVM Exceptions
+LICENSE_PERMS=	dist-mirror dist-sell pkg-mirror pkg-sell auto-accept
+
+BUILD_DEPENDS=	spirv-llvm-translator-${FLAVOR}>0:devel/spirv-llvm-translator@${FLAVOR} \
+		libedit>=0:devel/libedit
+
+FLAVORS=	${21:L:S/^/llvm/}
+
+USES=		cmake compiler:c++11-lib llvm:${FLAVOR:S/llvm//},build python:build tar:xz
+USE_LDCONFIG=	${PREFIX}/${FLAVOR}/lib
+
+BINARY_ALIAS=	python=${PYTHON_CMD}
+CMAKE_ARGS+=	-DLLVM_DIR:PATH="${LOCALBASE}/${FLAVOR}" \
+		-DCMAKE_PREFIX_PATH="${LOCALBASE}/${FLAVOR}"
+CMAKE_INSTALL_PREFIX=		${PREFIX}/${FLAVOR}
+DISTINFO_FILE=	${.CURDIR}/distinfo.${FLAVOR}
+NO_ARCH=	yes
+
+.include <bsd.port.pre.mk>
+
+.for i in ${FLAVORS:S/llvm//}
+.if ${i} <= ${FLAVOR:S/llvm//}
+PLIST_SUB+=	${i:S/^/llvm/:tu}=""
+.else
+PLIST_SUB+=	${i:S/^/llvm/:tu}="@comment "
+.endif
+.if ${i} == ${FLAVOR:S/llvm//}
+PLIST_SUB+=	NOT_${i:S/^/llvm/:tu}="@comment "
+.else
+PLIST_SUB+=	NOT_${i:S/^/llvm/:tu}=""
+.endif
+.endfor
+PLIST_SUB+=	LLVM_VERSION=${FLAVOR}
+
+.include <bsd.port.post.mk>
+
