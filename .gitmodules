@@ -4,3 +4,6 @@
 [submodule "external/FreeBSD-Electron"]
 	path = external/FreeBSD-Electron
 	url = https://github.com/tagattie/FreeBSD-Electron.git
+[submodule "mail/betterbird"]
+	path = mail/betterbird
+	url = https://github.com/dianeasaur/FreeBSD-Betterbird.git
