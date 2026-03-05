@@ -1,6 +1,6 @@
 # Makefile.common - shared code between MesaLib ports.
 
-MESAVERSION=	26.0.0
+MESAVERSION=	26.0.1
 
 MASTER_SITES=	https://mesa.freedesktop.org/archive/
 
